@@ -1,4 +1,3 @@
-import React, { SyntheticEvent } from 'react';
 import ReactDatePicker from 'react-datepicker';
 
 interface IDateProps {
