@@ -1,35 +1,78 @@
-import React, { ChangeEvent, FormEvent, useState } from 'react';
-import List from './List/List';
-import IDumDataSet from './searchData';
-import styles from './searchForm.module.scss';
+import React, { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import dayjs from 'dayjs';
+import ReactDatePicker from 'react-datepicker';
+import isBetween from 'dayjs/plugin/isBetween';
 
-const DUMMY_DATA = [
-  { id: 'hello111', date: '2022-01-15 17:51:29', mem_seq: 136 },
-  { id: 'catcatcat', date: '2022-03-14 17:55:29', mem_seq: 328 },
-  { id: 'hihi222', date: '2022-04-13 16:55:29', mem_seq: 380 },
-]; // 전역 상태 관리 라이브러리 써야하나..
+import IDumDataSet from './searchData.d';
+import List from './List/List';
+
+import styles from './searchForm.module.scss';
+import 'react-datepicker/dist/react-datepicker.css';
+import { btnData, DUMMY_DATA } from './List/ListConstant';
+import DatePicker from './DatePicker';
+
+dayjs.extend(isBetween);
 
 const SearchForm = () => {
   const [id, setId] = useState('');
+  const [code, setCode] = useState<string>('');
+  const [startDate, setStartDate] = useState<null | Date>(null);
+  const [endDate, setEndDate] = useState<null | Date>(null);
+  const [isVisible, setIsVisible] = useState(false);
   const [filtered, setFiltered] = useState<IDumDataSet[] | []>([]);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (id.trim() === '') return;
-    const filteredData = DUMMY_DATA.filter((data) => data.id.includes(id));
-    if (filteredData.length === 0) {
-      setFiltered([]);
+    const filteredIdData = DUMMY_DATA.filter((data) => data.id.includes(id));
+    const filteredCodeData = filteredIdData.filter(({ memSeq }) => String(memSeq).includes(code));
+    if (!startDate || !endDate) {
+      setFiltered(filteredCodeData);
+      setStartDate(null);
+      setEndDate(null);
+      setIsVisible(false);
       return;
     }
-    setFiltered(filteredData);
+    const filteredDateData = filteredCodeData.filter(({ date }) => dayjs(date).isBetween(startDate, endDate));
+    setFiltered(filteredDateData);
   };
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setId(e.currentTarget.value);
   };
 
+  const handleNumChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setCode(e.currentTarget.value);
+  };
+
+  const handleDateChange = (dates: [Date, Date]) => {
+    const [start, end] = dates;
+    setStartDate(start);
+    setEndDate(end);
+    if (start && end) {
+      setIsVisible((prev) => !prev);
+    }
+  };
+
   const handleReset = () => {
     setId('');
+    setCode('');
+    setStartDate(null);
+    setEndDate(null);
     setFiltered([]);
+  };
+
+  const handleClick = () => {
+    setIsVisible((prev) => !prev);
+  };
+
+  const handledDateBtnClick = (e: any) => {
+    const { keyword } = e.currentTarget.dataset;
+    const dataArr = btnData.find((btn) => btn.text === keyword);
+    if (dataArr) {
+      setStartDate(dataArr?.startVal);
+      setEndDate(dataArr?.endVal);
+      setIsVisible(false);
+    }
   };
 
   return (
@@ -43,17 +86,28 @@ const SearchForm = () => {
           </label>
           <label htmlFor='memberNum'>
             회원 번호
-            <input type='text' id='memberNum' defaultValue='전체' readOnly />
+            <input
+              type='text'
+              id='memberNum'
+              value={code}
+              placeholder='전체'
+              autoComplete='off'
+              onChange={handleNumChange}
+            />
           </label>
         </div>
         <div className={styles.dateInputWrapper}>
           <label htmlFor='startDate'>조회 기간</label>
-          <input type='text' id='startDate' defaultValue='전체' readOnly />
-          <span> ~ </span>
-          <input type='text' id='endDate' defaultValue='전체' readOnly />
-          <button type='button'>오늘</button>
-          <button type='button'>1주일</button>
-          <button type='button'>전체</button>
+          <button type='button' onClick={handleClick}>
+            <span className={styles.date}>{startDate === null ? '전체' : startDate.toLocaleString()}</span> ~{' '}
+            <span className={styles.date}>{endDate === null ? '전체' : endDate.toLocaleString()}</span>
+          </button>
+          {isVisible && <DatePicker startDate={startDate} endDate={endDate} handleDateChange={handleDateChange} />}
+          {btnData.map((d) => (
+            <button type='button' key={`btns-${d.text}`} onClick={handledDateBtnClick} data-keyword={d.text}>
+              {d.text}
+            </button>
+          ))}
         </div>
         <div className={styles.underBtns}>
           <button type='button' onClick={handleReset}>

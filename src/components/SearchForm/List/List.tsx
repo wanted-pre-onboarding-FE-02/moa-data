@@ -1,12 +1,13 @@
-import IDumDataSet from '../searchData';
+import IDumDataSet from '../searchData.d';
 import styles from './list.module.scss';
+import { TABLE_TITLE } from './ListConstant';
+import TableRowItem from './TableRowItem';
 
 interface ITableDataSet {
   tableData: [] | IDumDataSet[];
 }
 
 const List = ({ tableData }: ITableDataSet) => {
-  const TABLE_TITLE = ['회원번호', '가입일', '로그인ID', '상세'];
   if (tableData && tableData.length === 0) {
     return <p>검색 결과가 없습니다. 검색 조건을 다시 설정해주세요.</p>;
   }
@@ -26,14 +27,7 @@ const List = ({ tableData }: ITableDataSet) => {
         </thead>
         <tbody>
           {tableData.map((data: IDumDataSet) => (
-            <tr key={data.id} className={styles.line}>
-              <th>{data.mem_seq}</th>
-              <td>{data.date}</td>
-              <td>{data.id}</td>
-              <td>
-                <button type='button'>관리</button>
-              </td>
-            </tr>
+            <TableRowItem rowData={data} key={`tableList-${data.id}`} />
           ))}
         </tbody>
       </table>
