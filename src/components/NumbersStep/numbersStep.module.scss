@@ -1,0 +1,47 @@
+@use '/src/styles/constants/colors';
+
+.numbersStep {
+  padding: 20px;
+  // width: 600px;
+  // height: 600px;
+  background-color: colors.$WHITE;
+
+  .title {
+    display: inline-block;
+    padding: 10px;
+    font-size: 20px;
+    border: 1px solid black;
+    border-bottom: none;
+  }
+
+  .info {
+    padding-top: 20px;
+  }
+
+  .period {
+    display: flex;
+    padding-top: 20px;
+
+    * {
+      margin-right: 20px;
+    }
+
+    input {
+      border: 1px solid colors.$BLACK;
+    }
+  }
+
+  .buttonWrap {
+    display: flex;
+    padding-top: 20px;
+
+    button {
+      padding: 10px 20px;
+      border: 1px solid black;
+
+      + button {
+        margin-left: 10px;
+      }
+    }
+  }
+}

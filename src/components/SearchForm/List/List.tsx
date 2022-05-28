@@ -37,16 +37,16 @@ const List = ({ tableData, setDatas, clickCategory }: ITableDataSet) => {
       136: heartData136,
       328: heartData328,
       380: heartData380,
-    }[item.mem_seq];
+    }[item.memSeq];
     const a =
       clickArr &&
       clickArr.filter((data) => {
-        return data.member_seq === item.mem_seq && data.crt_ymdt.split('-', 2)[1] === sliceItem;
+        return data.member_seq === item.memSeq && data.crt_ymdt.split('-', 2)[1] === sliceItem;
       });
     const b =
       clickArr &&
       clickArr.filter((data) => {
-        return data.member_seq === item.mem_seq && data.crt_ymdt.split('-', 3)[2].split(' ', 1)[0] === sliceItem2;
+        return data.member_seq === item.memSeq && data.crt_ymdt.split('-', 3)[2].split(' ', 1)[0] === sliceItem2;
       });
     console.log(sliceItem2.split(' ', 1)[0]);
     const resultData = {
@@ -74,7 +74,7 @@ const List = ({ tableData, setDatas, clickCategory }: ITableDataSet) => {
         <tbody>
           {tableData.map((data: IDumDataSet) => (
             <tr key={data.id} className={styles.line}>
-              <th>{data.mem_seq}</th>
+              <th>{data.memSeq}</th>
               <td>{data.date}</td>
               <td>{data.id}</td>
               <td>

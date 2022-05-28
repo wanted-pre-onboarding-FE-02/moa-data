@@ -1,15 +1,16 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { IHeartData } from '../../types';
 import HeartChart from '../HeartChar/HeartChart';
+import NumbersStep from '../NumbersStep/NumbersStep';
 // eslint-disable-next-line import/no-cycle
 import List from './List/List';
 import IDumDataSet from './searchData';
 import styles from './searchForm.module.scss';
 
 const DUMMY_DATA = [
-  { id: 'hello111', date: '2022-02-15 17:51:29', mem_seq: 136 },
-  { id: 'catcatcat', date: '2022-04-16 17:55:29', mem_seq: 328 },
-  { id: 'hihi222', date: '2022-04-13 16:55:29', mem_seq: 380 },
+  { id: 'hello111', date: '2022-02-15 17:51:29', memSeq: 136 },
+  { id: 'catcatcat', date: '2022-04-16 17:55:29', memSeq: 328 },
+  { id: 'hihi222', date: '2022-04-13 16:55:29', memSeq: 380 },
 ]; // 전역 상태 관리 라이브러리 써야하나..
 export type Category = '전체' | '오늘';
 
@@ -19,7 +20,7 @@ const SearchForm = () => {
   const [filtered, setFiltered] = useState<IDumDataSet[] | []>([]);
   const [datas, setDatas] = useState<IHeartData[] | []>([]);
 
-  console.log(filtered);
+  // console.log(filtered);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -87,6 +88,7 @@ const SearchForm = () => {
         {filtered && <List tableData={filtered} setDatas={setDatas} clickCategory={clickCategory} />}
       </div>
       <HeartChart datas={datas} />
+      <NumbersStep usersignInDate={DUMMY_DATA[0].date} userSeq={DUMMY_DATA[0].memSeq} />
     </>
   );
 };
