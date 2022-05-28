@@ -21,8 +21,8 @@ interface IHeartBeat {
   x: string;
   y: number;
 }
+const result: IHeartBeat[] = [];
 const filterData = () => {
-  const result: IHeartBeat[] = [];
   heartArr.map((_data) => {
     result.push({ x: _data.crt_ymdt, y: _data.avg_beat });
   });
@@ -51,21 +51,21 @@ const HeartChart = () => {
         // scale='time'
         style={{
           ticks: {
-            size: ({ tick }) => {
-              // const tickSize = tick.getFullYear() % 5 === 0 ? 10 : 5;
-              console.log(tick);
-              const tickSize = 4;
+            size: ({ index }) => {
+              const tickSize = +index % 3 === 0 && +index % 6 !== 0 ? 5 : 0;
+
               return tickSize;
             },
             stroke: 'white',
             strokeWidth: 1,
           },
-          tickLabels: { fill: 'white' },
+          tickLabels: { fill: 'black' },
         }}
         tickFormat={(t, i) => {
           if (i % 6 === 0) {
-            const stringDate = new Date(t);
-            return `${stringDate}`;
+            const stringDate = String(new Date(t));
+            console.log(stringDate);
+            return `${stringDate.slice(16, 24)}`;
           }
           return '';
         }}
