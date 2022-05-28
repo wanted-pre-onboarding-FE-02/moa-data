@@ -1,11 +1,14 @@
 @use '/src/styles/constants/colors';
 
 .searchFormWrapper {
+  background: colors.$WHITE;
+
   .searchForm {
     display: flex;
     flex-direction: column;
-    width: 650px;
+    width: 800px;
     margin-top: 30px;
+    margin-bottom: 30px;
     background: colors.$WHITE;
     outline: 1px solid colors.$BLACK;
 
@@ -25,13 +28,14 @@
       button {
         min-width: 100px;
         padding: 10px 20px;
+        margin-left: 5px;
         color: colors.$WHITE;
         background: colors.$MOA_BLUE;
       }
     }
 
     input {
-      width: 200px;
+      width: 280px;
       padding: 10px;
       background: colors.$WHITE;
       border-radius: 5px;

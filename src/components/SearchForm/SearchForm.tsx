@@ -1,12 +1,7 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import List from './List/List';
+import IDumDataSet from './searchData';
 import styles from './searchForm.module.scss';
-
-interface IDumDataSet {
-  id: string;
-  date: string;
-  mem_seq: number;
-}
 
 const DUMMY_DATA = [
   { id: 'hello111', date: '2022-01-15 17:51:29', mem_seq: 136 },
@@ -44,14 +39,7 @@ const SearchForm = () => {
         <div className={styles.idAndNumWrapper}>
           <label htmlFor='memberId'>
             로그인 ID
-            <input
-              type='text'
-              id='memberId'
-              value={id}
-              placeholder='전체'
-              autoComplete='false'
-              onChange={handleChange}
-            />
+            <input type='text' id='memberId' value={id} placeholder='전체' autoComplete='off' onChange={handleChange} />
           </label>
           <label htmlFor='memberNum'>
             회원 번호

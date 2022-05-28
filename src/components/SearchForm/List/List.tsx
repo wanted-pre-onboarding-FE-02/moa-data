@@ -1,10 +1,5 @@
+import IDumDataSet from '../searchData';
 import styles from './list.module.scss';
-
-interface IDumDataSet {
-  id: string;
-  date: string;
-  mem_seq: number;
-}
 
 interface ITableDataSet {
   tableData: [] | IDumDataSet[];
