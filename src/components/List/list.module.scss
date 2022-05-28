@@ -1,0 +1,44 @@
+@use '/src/styles/constants/colors';
+
+.searchResult {
+  background-color: colors.$WHITE;
+
+  p {
+    margin: 20px 0;
+
+    mark {
+      color: colors.$BLUE;
+      background-color: transparent;
+    }
+  }
+
+  .table {
+    width: 800px;
+    border: 1px solid colors.$BLACK;
+
+    thead {
+      td {
+        font-weight: 600;
+        background-color: colors.$GRAYE;
+        border: 1px solid colors.$BLACK;
+      }
+    }
+
+    th,
+    td {
+      padding: 12px 0;
+      font-size: 16px;
+      text-align: center;
+      border: 1px solid colors.$BLACK;
+    }
+
+    button {
+      width: 50px;
+      height: 25px;
+      font-size: 16px;
+      color: colors.$WHITE;
+      background-color: colors.$BLUE;
+      border-radius: 5px;
+    }
+  }
+}
