@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
+import List from './List/List';
 import styles from './searchForm.module.scss';
 
 interface IDumDataSet {
@@ -19,6 +20,7 @@ const SearchForm = () => {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (id.trim() === '') return;
     const filteredData = DUMMY_DATA.filter((data) => data.id.includes(id));
     if (filteredData.length === 0) {
       setFiltered([]);
@@ -32,6 +34,7 @@ const SearchForm = () => {
 
   const handleReset = () => {
     setId('');
+    setFiltered([]);
   };
 
   return (
@@ -71,7 +74,7 @@ const SearchForm = () => {
           <button type='submit'>검색</button>
         </div>
       </form>
-      <ul>{filtered && filtered.map((f) => <li key={f.id}>{f.id}</li>)}</ul>
+      {filtered && <List tableData={filtered} />}
     </div>
   );
 };

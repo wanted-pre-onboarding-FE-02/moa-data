@@ -1,5 +1,5 @@
 import React from 'react';
-import SearchForm from '../components/Layout/SearchForm/SearchForm';
+import SearchForm from '../components/SearchForm/SearchForm';
 
 const Page = () => {
   return (
