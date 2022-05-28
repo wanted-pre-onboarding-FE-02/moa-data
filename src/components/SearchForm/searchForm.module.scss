@@ -1,4 +1,5 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/position';
 
 .searchFormWrapper {
   background: colors.$WHITE;
@@ -13,13 +14,18 @@
     outline: 1px solid colors.$BLACK;
 
     .dateInputWrapper {
+      position: relative;
       margin-top: 10px;
 
-      button {
-        margin-left: 10px;
-        color: colors.$WHITE;
-        background: colors.$MOA_BLUE;
+      .datePickerWrapper {
+        @include position.absolute(25px auto auto 68px);
       }
+
+      // button {
+      //   margin-left: 10px;
+      //   color: colors.$WHITE;
+      //   background: colors.$MOA_BLUE;
+      // }
     }
 
     .underBtns {
