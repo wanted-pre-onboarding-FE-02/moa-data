@@ -1,7 +1,11 @@
-import React from 'react';
+import NumbersStep from '../components/NumbersStep/NumbersStep';
 
 const Page = () => {
-  return <div>page</div>;
+  return (
+    <div>
+      <NumbersStep />
+    </div>
+  );
 };
 
 export default Page;
