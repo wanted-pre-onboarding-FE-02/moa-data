@@ -18,7 +18,7 @@ const HeartChart = () => {
   const [dateState, setDateState] = useRecoilState<IDate>(heartDateState);
   const [filterData, setFilterData] = useState<IHeartData[]>([]); // 필터된 데이터
   const memberInfo = useRecoilValue(pickedMemberInfo);
-  const [counter, setCounter] = useState(0);
+  const [isInitialData, setIsInitialData] = useState(true);
 
   const result: IHeartBeat[] = []; // 뿌려주는 전체 데이터
   const filterResult: IHeartBeat[] = []; // 뿌려주는 필터된 데이터
@@ -35,7 +35,7 @@ const HeartChart = () => {
 
   useEffect(() => {
     if (!heartData || !memberInfo) return;
-
+    console.log('a');
     const nullStartDate = dateState.start === null ? memberInfo.date : dateState.start;
     const nullEndDate = dateState.end === null ? '2022-04-20' : dateState.end;
 
@@ -45,10 +45,10 @@ const HeartChart = () => {
       return;
     }
     setFilterData(filteredDateData);
-  }, [dateState.end, dateState.start]);
+  }, [dateState.end, dateState.start, heartData, memberInfo]);
 
   const handledDateBtnClick = (e: FormEvent<HTMLButtonElement>) => {
-    setCounter(counter + 1);
+    setIsInitialData(false);
     const { keyword } = e.currentTarget.dataset;
     const dataArr = btnData.find((btn) => btn.text === keyword);
     if (dataArr) {
@@ -93,7 +93,7 @@ const HeartChart = () => {
           />
           {/* filterData.length !== 0 ? filterResult.reverse() : result.reverse() */}
           <VictoryArea
-            data={counter === 0 ? result.reverse() : filterResult.reverse()}
+            data={isInitialData ? result.reverse() : filterResult.reverse()}
             y={(datum) => datum.y / 160}
             interpolation='monotoneX'
             style={{ data: { fill: 'rgba(255,150,99,0.15)', stroke: 'orange', strokeWidth: 2 } }}
