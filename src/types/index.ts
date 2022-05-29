@@ -18,3 +18,8 @@ export interface IStepData {
   calorie: number;
   crt_ymdt: string;
 }
+
+export interface IDate {
+  start: null | Date;
+  end: null | Date;
+}

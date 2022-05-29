@@ -1,64 +1,105 @@
+import DateForm from 'components/DateForm/DateForm';
+import { btnData } from 'components/SearchForm/List/ListConstant';
+import dayjs from 'dayjs';
+import { FormEvent, useEffect, useState } from 'react';
+import { useRecoilState } from 'recoil';
+import { heartDataState, heartDateState } from 'recoil/member.atom';
+import { IDate, IHeartData } from 'types';
 import { VictoryArea, VictoryAxis, VictoryChart, VictoryLabel } from 'victory';
-import HEARTDATA1 from '../../data/heartrate/heartrate_136_0226_____1_.json';
-import { IHeartData } from '../../types';
-
 import styles from './heartChart.module.scss';
-
-interface IProps {
-  datas: IHeartData[];
-}
 
 interface IHeartBeat {
   x: string;
   y: number;
 }
 
-const HeartChart = ({ datas }: IProps) => {
-  const result: IHeartBeat[] = [];
-  datas.forEach((_data) => {
-    result.push({ x: _data.crt_ymdt, y: _data.avg_beat });
-  });
+const HeartChart = () => {
+  const [heartData, setHeartData] = useRecoilState(heartDataState); // 전체 데이터
+  const [dateState, setDateState] = useRecoilState<IDate>(heartDateState);
+  const [filterData, setFilterData] = useState<IHeartData[]>([]); // 필터된 데이터
+
+  const result: IHeartBeat[] = []; // 뿌려주는 전체 데이터
+  const filterResult: IHeartBeat[] = []; // 뿌려주는 필터된 데이터
+
+  heartData &&
+    heartData.forEach((_data) => {
+      result.push({ x: _data.crt_ymdt, y: _data.avg_beat });
+    });
+
+  filterData &&
+    filterData.forEach((_data) => {
+      filterResult.push({ x: _data.crt_ymdt, y: _data.avg_beat });
+    });
+
+  useEffect(() => {
+    if (!heartData) return;
+    const filteredDateData = heartData.filter((date) => dayjs(date.crt_ymdt).isBetween(dateState.start, dateState.end));
+    if (filteredDateData.length === 0) {
+      setFilterData([]);
+      return;
+    }
+    setFilterData(filteredDateData);
+  }, [dateState.end, dateState.start]);
+
+  const handledDateBtnClick = (e: FormEvent<HTMLButtonElement>) => {
+    const { keyword } = e.currentTarget.dataset;
+    const dataArr = btnData.find((btn) => btn.text === keyword);
+    if (dataArr) {
+      setDateState({ start: dataArr.startVal, end: dataArr.endVal });
+    }
+  };
+
+  // console.log(heartData);
 
   return (
-    <div className={styles.wrapper}>
-      <VictoryChart width={800} height={400} domain={{ y: [0.4, 1] }} style={{ background: { fill: 'black' } }}>
-        <VictoryLabel x={15} y={15} text='BPM' style={{ fill: 'orange' }} />
-        <VictoryAxis
-          dependentAxis
-          orientation='left'
-          offsetX={50}
-          tickValues={[0.4, 0.54, 0.7, 0.84, 1]}
-          style={{ tickLabels: { fill: 'white' } }}
-          tickFormat={(t) => `${t * 150}`}
-        />
-        <VictoryAxis
-          style={{
-            ticks: {
-              size: ({ index }) => {
-                const tickSize = Number(index) % 3 === 0 && Number(index) % 6 !== 0 ? 5 : 0;
-                return tickSize;
+    <>
+      <div className={styles.wrapper}>
+        <VictoryChart width={800} height={400} domain={{ y: [0.4, 1] }} style={{ background: { fill: 'black' } }}>
+          <VictoryLabel x={15} y={15} text='BPM' style={{ fill: 'orange' }} />
+          <VictoryAxis
+            dependentAxis
+            orientation='left'
+            offsetX={50}
+            tickValues={[0.4, 0.54, 0.7, 0.84, 1]}
+            style={{ tickLabels: { fill: 'white' } }}
+            tickFormat={(t) => `${t * 160}`}
+          />
+          <VictoryAxis
+            style={{
+              ticks: {
+                size: ({ index }) => {
+                  const tickSize = Number(index) % 3 === 0 && Number(index) % 6 !== 0 ? 5 : 0;
+                  return tickSize;
+                },
+                stroke: 'white',
+                strokeWidth: 1,
               },
-              stroke: 'white',
-              strokeWidth: 1,
-            },
-            tickLabels: { fill: 'white' },
-          }}
-          tickFormat={(t, i) => {
-            if (i % 6 === 0) {
-              const stringDate = String(new Date(t));
-              return `${stringDate.slice(16, 24)}`;
-            }
-            return '';
-          }}
-        />
-        <VictoryArea
-          data={result.reverse()}
-          y={(datum) => datum.y / 150}
-          interpolation='monotoneX'
-          style={{ data: { fill: 'rgba(255,150,99,0.15)', stroke: 'orange', strokeWidth: 2 } }}
-        />
-      </VictoryChart>
-    </div>
+              tickLabels: { fill: 'white' },
+            }}
+            tickFormat={(t, i) => {
+              if (i % 6 === 0) {
+                const stringDate = String(new Date(t));
+                return `${stringDate.slice(16, 24)}`;
+              }
+              return '';
+            }}
+          />
+          {/* filterData.length !== 0 ? filterResult.reverse() : result.reverse() */}
+          <VictoryArea
+            data={filterData.length !== 0 ? filterResult.reverse() : result.reverse()}
+            y={(datum) => datum.y / 160}
+            interpolation='monotoneX'
+            style={{ data: { fill: 'rgba(255,150,99,0.15)', stroke: 'orange', strokeWidth: 2 } }}
+          />
+        </VictoryChart>
+      </div>
+      <DateForm dateState={dateState} setDateState={setDateState} />
+      {btnData.map((d) => (
+        <button type='button' key={`btns-${d.text}`} onClick={handledDateBtnClick} data-keyword={d.text}>
+          {d.text}
+        </button>
+      ))}
+    </>
   );
 };
 

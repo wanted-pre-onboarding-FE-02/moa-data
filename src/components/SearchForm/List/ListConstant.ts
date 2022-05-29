@@ -1,10 +1,10 @@
-const TODAY = new Date('2022-04-20');
+const TODAY = new Date('2022-04-20 12:31:10');
 
 export const btnData = [
   {
     text: '오늘',
-    startVal: TODAY,
-    endVal: TODAY,
+    startVal: new Date('2022-04-16 00:00:01'),
+    endVal: new Date('2022-04-16 23:59:59'),
   },
   {
     text: '일주일',
