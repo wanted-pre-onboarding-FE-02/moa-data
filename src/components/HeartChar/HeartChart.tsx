@@ -2,8 +2,8 @@ import DateForm from 'components/DateForm/DateForm';
 import { btnData } from 'components/SearchForm/List/ListConstant';
 import dayjs from 'dayjs';
 import { FormEvent, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
-import { heartDataState, heartDateState } from 'recoil/member.atom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { heartDataState, heartDateState, pickedMemberInfo } from 'recoil/member.atom';
 import { IDate, IHeartData } from 'types';
 import { VictoryArea, VictoryAxis, VictoryChart, VictoryLabel } from 'victory';
 import styles from './heartChart.module.scss';
@@ -14,9 +14,11 @@ interface IHeartBeat {
 }
 
 const HeartChart = () => {
-  const [heartData, setHeartData] = useRecoilState(heartDataState); // 전체 데이터
+  const heartData = useRecoilValue(heartDataState); // 전체 데이터
   const [dateState, setDateState] = useRecoilState<IDate>(heartDateState);
   const [filterData, setFilterData] = useState<IHeartData[]>([]); // 필터된 데이터
+  const memberInfo = useRecoilValue(pickedMemberInfo);
+  const [counter, setCounter] = useState(0);
 
   const result: IHeartBeat[] = []; // 뿌려주는 전체 데이터
   const filterResult: IHeartBeat[] = []; // 뿌려주는 필터된 데이터
@@ -32,8 +34,12 @@ const HeartChart = () => {
     });
 
   useEffect(() => {
-    if (!heartData) return;
-    const filteredDateData = heartData.filter((date) => dayjs(date.crt_ymdt).isBetween(dateState.start, dateState.end));
+    if (!heartData || !memberInfo) return;
+
+    const nullStartDate = dateState.start === null ? memberInfo.date : dateState.start;
+    const nullEndDate = dateState.end === null ? '2022-04-20' : dateState.end;
+
+    const filteredDateData = heartData.filter((date) => dayjs(date.crt_ymdt).isBetween(nullStartDate, nullEndDate));
     if (filteredDateData.length === 0) {
       setFilterData([]);
       return;
@@ -42,6 +48,7 @@ const HeartChart = () => {
   }, [dateState.end, dateState.start]);
 
   const handledDateBtnClick = (e: FormEvent<HTMLButtonElement>) => {
+    setCounter(counter + 1);
     const { keyword } = e.currentTarget.dataset;
     const dataArr = btnData.find((btn) => btn.text === keyword);
     if (dataArr) {
@@ -86,7 +93,7 @@ const HeartChart = () => {
           />
           {/* filterData.length !== 0 ? filterResult.reverse() : result.reverse() */}
           <VictoryArea
-            data={filterData.length !== 0 ? filterResult.reverse() : result.reverse()}
+            data={counter === 0 ? result.reverse() : filterResult.reverse()}
             y={(datum) => datum.y / 160}
             interpolation='monotoneX'
             style={{ data: { fill: 'rgba(255,150,99,0.15)', stroke: 'orange', strokeWidth: 2 } }}
