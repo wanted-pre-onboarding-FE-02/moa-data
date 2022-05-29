@@ -1,6 +1,6 @@
 import { useSetRecoilState } from 'recoil';
 
-import { heartDataState, pickedMemberInfo } from '../../../recoil/member.atom';
+import { heartDataState, pickedMemberInfo, stepDataState } from '../../../recoil/member.atom';
 import getUserHeartInfo from '../../../service/getUserHeartInfo';
 import getUserStepInfo from '../../../service/getUserStepInfo';
 import IDumDataSet from '../searchData.d';
@@ -12,6 +12,7 @@ interface IRowDataSet {
 const TableRowItem = ({ rowData }: IRowDataSet) => {
   const { id, memSeq, date } = rowData;
   const setHearthData = useSetRecoilState(heartDataState);
+  const setStepData = useSetRecoilState(stepDataState);
   // const wholeHeartData = getUserHeartInfo(memSeq);
   // const wholeStepData = getUserHeartInfo(memSeq);
   // 리코일로 속성 버튼 클릭할때 세팅해주면 될듯..?
@@ -23,6 +24,9 @@ const TableRowItem = ({ rowData }: IRowDataSet) => {
     const wholeStepData = getUserStepInfo(memSeq);
     setMemberInfo(rowData);
     setHearthData(wholeHeartData);
+    setStepData(wholeStepData);
+    // console.log(wholeHeartData);
+    // console.log(wholeStepData);
     // console.log(wholeHeartData, wholeStepData);
   };
 
