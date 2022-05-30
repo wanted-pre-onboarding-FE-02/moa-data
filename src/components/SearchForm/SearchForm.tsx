@@ -26,14 +26,14 @@ const SearchForm = () => {
     e.preventDefault();
     const filteredIdData = DUMMY_DATA.filter((data) => data.id.includes(id));
     const filteredCodeData = filteredIdData.filter(({ memSeq }) => String(memSeq).includes(code));
-    if (!dateState?.start || !dateState.end) {
+    if (!dateState?.start || !dateState.newEnd) {
       setFiltered(filteredCodeData);
-      setDateState({ start: null, end: null });
+      setDateState({ start: null, newEnd: null });
       // setIsVisible(false);
       return;
     }
     const filteredDateData = filteredCodeData.filter(({ date }) =>
-      dayjs(date).isBetween(dateState.start, dateState.end)
+      dayjs(date).isBetween(dateState.start, dateState.newEnd)
     );
 
     setFiltered(filteredDateData);
@@ -50,7 +50,7 @@ const SearchForm = () => {
   const handleReset = () => {
     setId('');
     setCode('');
-    setDateState({ start: null, end: null });
+    setDateState({ start: null, newEnd: null });
     setFiltered([]);
   };
 
@@ -58,7 +58,7 @@ const SearchForm = () => {
     const { keyword } = e.currentTarget.dataset;
     const dataArr = btnData.find((btn) => btn.text === keyword);
     if (dataArr) {
-      setDateState({ start: dataArr.startVal, end: dataArr.endVal });
+      setDateState({ start: dataArr.startVal, newEnd: dataArr.endVal });
       // setIsVisible(false);
     }
   };

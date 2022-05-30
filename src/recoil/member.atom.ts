@@ -15,12 +15,12 @@ export const heartDataState = atom<IHeartData[] | undefined>({
 
 export const searchListDateState = atom<IDate>({
   key: '#searchListDateState',
-  default: { start: null, end: null },
+  default: { start: null, newEnd: null },
 });
 
 export const heartDateState = atom<IDate>({
   key: '#heartDateState',
-  default: { start: null, end: null },
+  default: { start: null, newEnd: null },
 });
 
 export const stepDataState = atom<IStepData[] | undefined>({
@@ -30,5 +30,5 @@ export const stepDataState = atom<IStepData[] | undefined>({
 
 export const stepDateState = atom<IDate>({
   key: '#stepDateState',
-  default: { start: null, end: null },
+  default: { start: null, newEnd: null },
 });

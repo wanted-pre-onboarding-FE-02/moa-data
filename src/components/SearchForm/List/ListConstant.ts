@@ -1,14 +1,14 @@
-const TODAY = new Date('2022-04-20 12:31:10');
+const TODAY = new Date('2022-04-20 23:59:59');
 
 export const btnData = [
   {
     text: '오늘',
-    startVal: new Date('2022-04-16 00:00:01'),
-    endVal: new Date('2022-04-16 23:59:59'),
+    startVal: new Date('2022-04-20 00:00:01'),
+    endVal: TODAY,
   },
   {
     text: '일주일',
-    startVal: new Date('2022-04-13'),
+    startVal: new Date('2022-04-13 00:00:01'),
     endVal: TODAY,
   },
   {
