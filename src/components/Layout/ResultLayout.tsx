@@ -15,6 +15,8 @@ const ResultLayout = () => {
         </div>
       </header>
       <div className={styles.outletWrapper}>
+        <p>홈 &gt; 회원관리 &gt; 회원 정보</p>
+        <h3>회원 관리</h3>
         <Outlet />
       </div>
     </div>

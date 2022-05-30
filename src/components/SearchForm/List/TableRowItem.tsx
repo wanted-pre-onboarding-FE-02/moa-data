@@ -3,8 +3,10 @@ import { useSetRecoilState } from 'recoil';
 
 import { heartDataState, pickedMemberInfo } from '../../../recoil/member.atom';
 import getUserHeartInfo from '../../../service/getUserHeartInfo';
-import getUserStepInfo from '../../../service/getUserStepInfo';
+// import getUserStepInfo from '../../../service/getUserStepInfo';
 import IDumDataSet from '../searchData.d';
+
+import styles from './list.module.scss';
 
 interface IRowDataSet {
   rowData: IDumDataSet;
@@ -23,7 +25,7 @@ const TableRowItem = ({ rowData }: IRowDataSet) => {
 
   const handleSetBtnClick = () => {
     const wholeHeartData = getUserHeartInfo(memSeq);
-    const wholeStepData = getUserStepInfo(memSeq);
+    // const wholeStepData = getUserStepInfo(memSeq);
     setMemberInfo(rowData);
     setHearthData(wholeHeartData);
     // console.log(wholeHeartData, wholeStepData);
@@ -31,7 +33,7 @@ const TableRowItem = ({ rowData }: IRowDataSet) => {
   };
 
   return (
-    <tr>
+    <tr className={styles.tableRow}>
       <th>{memSeq}</th>
       <td>{date}</td>
       <td>{id}</td>

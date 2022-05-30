@@ -2,8 +2,11 @@
 @use '/src/styles/mixins/position';
 
 .searchFormWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   padding: 30px;
-  background: #ffffff;
+  background: colors.$WHITE;
   border-radius: 6px;
 
   .searchForm {
@@ -40,7 +43,7 @@
         padding: 5px 10px;
         margin: 0 5px;
         font-weight: 600;
-        color: #353535;
+        color: colors.$GRAY3;
         background: #ebebeb;
         border-radius: 6px;
       }
@@ -67,7 +70,7 @@
       width: 280px;
       padding: 10px;
       margin-left: 20px;
-      border-bottom: 1px solid #e6e6e6;
+      border-bottom: 1px solid colors.$MOA_BORDER2;
     }
   }
 }

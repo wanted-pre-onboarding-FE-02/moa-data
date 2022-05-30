@@ -65,7 +65,7 @@ const SearchForm = () => {
 
   return (
     <div className={styles.searchFormWrapper}>
-      <h3>회원 검색</h3>
+      {/* <h3>회원 검색</h3> */}
       <form onSubmit={handleSubmit} className={styles.searchForm}>
         <div className={styles.idAndNumWrapper}>
           <label htmlFor='memberId'>
