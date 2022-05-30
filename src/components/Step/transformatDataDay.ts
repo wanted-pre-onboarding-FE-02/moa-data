@@ -1,15 +1,4 @@
-import _ from 'lodash';
-// import dayjs from 'dayjs';
-
-interface IStepData {
-  seq: number;
-  member_seq: number;
-  steps: number;
-  minutes: number;
-  distance: number;
-  calorie: number;
-  crt_ymdt: string;
-}
+import { IStepData } from 'types';
 
 interface IConvertData {
   time: string | undefined;
@@ -36,15 +25,8 @@ const transformatDataDay = (STEP_DATA: IStepData[]) => {
     const date = item?.crt_ymdt.split(' ')[0];
     const convertData = { time: date, steps: item?.steps };
     resultArr.push(convertData);
-
-    // console.log(date);
-    // return { date, daySteps: item?.steps };
-    // return { time: date, steps: item?.steps };
   });
-  // console.log(resultArr);
   return resultArr;
-
-  // return _.uniqBy(resultArr, 'date');
 };
 
 export default transformatDataDay;

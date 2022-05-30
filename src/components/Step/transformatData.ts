@@ -1,15 +1,6 @@
 import _ from 'lodash';
 import dayjs from 'dayjs';
-
-interface IStepData {
-  seq: number;
-  member_seq: number;
-  steps: number;
-  minutes: number;
-  distance: number;
-  calorie: number;
-  crt_ymdt: string;
-}
+import { IStepData } from 'types';
 
 const transformatData = (STEP_DATA: IStepData[]) => {
   const result = STEP_DATA.map((item) => {
@@ -33,8 +24,6 @@ const transformatData = (STEP_DATA: IStepData[]) => {
     }
     result2.push({ time: result[i + 1].time.format('HH:mm'), steps: result[i + 1].steps });
   }
-  // console.log(result2);
-  // console.log(_.uniqBy(result2, 'time'));
 
   return _.uniqBy(result2, 'time');
 };
