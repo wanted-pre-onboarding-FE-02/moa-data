@@ -1,35 +1,44 @@
 @use '/src/styles/constants/colors';
 
 .searchResult {
+  color: colors.$GRAY2;
   background-color: colors.$WHITE;
 
   p {
-    margin: 20px 0;
+    margin: 20px 0 20px 30px;
 
     mark {
-      color: colors.$BLUE;
+      font-weight: 600;
+      color: colors.$MOA_BRIGHT_BLUE;
       background-color: transparent;
     }
   }
 
   .table {
     width: 800px;
-    border: 1px solid colors.$BLACK;
+    border-spacing: 0 10px;
+    border-collapse: separate;
+    background-color: colors.$WHITE;
+    border: 1px solid colors.$MOA_TABLE_BG;
 
     thead {
       td {
+        height: 50px;
         font-weight: 600;
-        background-color: colors.$GRAYE;
-        border: 1px solid colors.$BLACK;
+        line-height: 50px;
       }
+    }
+
+    .tableRow {
+      height: 70px;
+      line-height: 70px;
+      background-color: colors.$MOA_TABLE_BG;
     }
 
     th,
     td {
-      padding: 12px 0;
       font-size: 16px;
       text-align: center;
-      border: 1px solid colors.$BLACK;
     }
 
     button {
@@ -37,7 +46,7 @@
       height: 25px;
       font-size: 16px;
       color: colors.$WHITE;
-      background-color: colors.$BLUE;
+      background-color: colors.$MOA_BRIGHT_BLUE;
       border-radius: 5px;
     }
   }
