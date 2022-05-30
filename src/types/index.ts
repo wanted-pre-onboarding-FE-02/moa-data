@@ -20,11 +20,11 @@ export interface IStepData {
 }
 
 export interface ITransformStepData {
-  crt_ymdt: string;
-  steps: number;
+  x: string;
+  y: number;
 }
 
 export interface IDate {
   start: null | Date;
-  end: null | Date;
+  newEnd: null | Date;
 }
