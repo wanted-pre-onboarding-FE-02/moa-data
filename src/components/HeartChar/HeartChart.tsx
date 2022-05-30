@@ -47,6 +47,8 @@ const HeartChart = () => {
     setFilterData(filteredDateData);
   }, [dateState.end, dateState.start, heartData, memberInfo]);
 
+  console.log(filterData);
+
   const handledDateBtnClick = (e: FormEvent<HTMLButtonElement>) => {
     setIsInitialData(false);
     const { keyword } = e.currentTarget.dataset;

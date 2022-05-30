@@ -1,21 +1,8 @@
-import _ from 'lodash';
-import dayjs from 'dayjs';
-
-interface IStepData {
-  seq: number;
-  member_seq: number;
-  steps: number;
-  minutes: number;
-  distance: number;
-  calorie: number;
-  crt_ymdt: string;
-}
+import { IStepData } from '../../types/index';
 
 const transformatData = (STEP_DATA: IStepData[]) => {
   const result = STEP_DATA.map((item) => {
-    const time = dayjs(item.crt_ymdt);
-
-    return { time, steps: item.steps };
+    return { steps: item.steps, crt_ymdt: item.crt_ymdt };
   }).reverse();
 
   const result2 = [];
@@ -24,17 +11,17 @@ const transformatData = (STEP_DATA: IStepData[]) => {
 
     const ave = (result[i + 1].steps - result[i].steps) / 10;
 
-    result2.push({ time: result[i].time.format('HH:mm'), steps: result[i].steps });
+    result2.push({ steps: result[i].steps, crt_ymdt: result[i].crt_ymdt });
     let accSteps = result[i].steps;
     for (let j = 0; j < 8; j += 1) {
       accSteps += ave;
-      const tmp2 = { time: result[i].time.add(j + 1, 'm').format('HH:mm'), steps: Math.round(accSteps) };
+      const tmp2 = { steps: Math.round(accSteps), crt_ymdt: result[i].crt_ymdt };
       result2.push(tmp2);
     }
-    result2.push({ time: result[i + 1].time.format('HH:mm'), steps: result[i + 1].steps });
+    result2.push({ steps: result[i + 1].steps, crt_ymdt: result[i + 1].crt_ymdt });
   }
 
-  return _.uniqBy(result2, 'time');
+  return result2;
 };
 
 export default transformatData;

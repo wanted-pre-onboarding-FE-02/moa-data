@@ -1,7 +1,6 @@
 export interface ITest {
   test: string;
 }
-<<<<<<< HEAD
 
 export interface IHeartData {
   seq: number;
@@ -20,9 +19,12 @@ export interface IStepData {
   crt_ymdt: string;
 }
 
+export interface ITransformStepData {
+  crt_ymdt: string;
+  steps: number;
+}
+
 export interface IDate {
   start: null | Date;
   end: null | Date;
 }
-=======
->>>>>>> 70eecb0ec88de89b2e6704e2c70c3f0996b88b51

@@ -4,8 +4,4 @@ printWidth: 120
 proseWrap: never
 singleQuote: true
 htmlWhitespaceSensitivity: 'css'
-<<<<<<< HEAD
 endOfLine: 'auto'
-=======
-endOfLine: 'lf'
->>>>>>> 70eecb0ec88de89b2e6704e2c70c3f0996b88b51

@@ -1,9 +1,6 @@
 {
   "compilerOptions": {
-<<<<<<< HEAD
     "baseUrl": "src",
-=======
->>>>>>> 70eecb0ec88de89b2e6704e2c70c3f0996b88b51
     "target": "es5",
     "lib": [
       "dom",
