@@ -16,10 +16,14 @@ const ColumnChart = () => {
   const stepData = useRecoilValue(stepDataState); // 전체 데이터
   const [dateState, setDateState] = useRecoilState<IDate>(stepDateState);
   const [filterData, setFilterData] = useState<IStepData[]>([]); // 기간으로 필터된 데이터
+  // const [dataMinute, setDataMinute] = useState();
   const dataMinuteList = filterData && transformatData(filterData); // 필터된 데이터 를 분 단위로 쪼갬(오늘 버튼 클릭)
   const dataDayList = filterData && transformatDataDay(filterData); // 필터된 데이터를 날짜별로 나타냄(일주일, 전체 버튼 클릭)
 
   // console.log(dataDayList);
+
+  // console.log('dataMinuteList', dataMinuteList);
+  // console.log('dataDayList', dataDayList);
 
   const memberInfo = useRecoilValue(pickedMemberInfo);
   const [isInitialData, setIsInitialData] = useState(true);
@@ -27,7 +31,7 @@ const ColumnChart = () => {
   useEffect(() => {
     if (!stepData || !memberInfo) return;
     const nullStartDate = dateState.start === null ? memberInfo.date : dateState.start;
-    const nullEndDate = dateState.end === null ? '2022-04-20' : dateState.end;
+    const nullEndDate = dateState.newEnd === null ? '2022-04-21' : dateState.newEnd;
 
     const filteredDateData = stepData.filter((date) => dayjs(date.crt_ymdt).isBetween(nullStartDate, nullEndDate));
     if (filteredDateData.length === 0) {
@@ -35,28 +39,20 @@ const ColumnChart = () => {
       return;
     }
     setFilterData(filteredDateData);
-  }, [dateState.end, dateState.start, stepData, memberInfo]);
+  }, [dateState.newEnd, dateState.start, stepData, memberInfo]);
 
   const handledDateBtnClick = (e: FormEvent<HTMLButtonElement>) => {
     setIsInitialData(false);
     const { keyword } = e.currentTarget.dataset;
     const dataArr = btnData.find((btn) => btn.text === keyword);
     if (dataArr) {
-      setDateState({ start: dataArr.startVal, end: dataArr.endVal });
+      setDateState({ start: dataArr.startVal, newEnd: dataArr.endVal });
     }
   };
 
-  const handleSelectedData = () => {
-    return (dataDayList.length < 2 ? dataMinuteList : dataDayList);
-    // let data = [];
-    // if (dataDayList.length < 2) {
-    //   // 데이터가 1개 일때
-    //   data = dataMinuteList;
-    // } else {
-    //   // 데이터가 2개 이상 일때
-    //   data = dataDayList;
-    }
-  };
+  // 하루 데이터를 분단위로 보여줄지 & 일별 데이터로 보여줄지 결정
+  const handleSelectedData = () => (dataDayList.length < 2 ? dataMinuteList : dataDayList);
+  // console.log(handleSelectedData());
 
   return (
     <div className={styles.wrapper}>
@@ -99,4 +95,5 @@ const ColumnChart = () => {
     </div>
   );
 };
+
 export default ColumnChart;

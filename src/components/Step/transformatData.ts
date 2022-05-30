@@ -26,13 +26,15 @@ const transformatData = (STEP_DATA: IStepData[]) => {
 
     result2.push({ time: result[i].time.format('HH:mm'), steps: result[i].steps });
     let accSteps = result[i].steps;
-    for (let j = 0; j < 8; j += 1) {
+    for (let j = 0; j < 9; j += 1) {
       accSteps += ave;
       const tmp2 = { time: result[i].time.add(j + 1, 'm').format('HH:mm'), steps: Math.round(accSteps) };
       result2.push(tmp2);
     }
     result2.push({ time: result[i + 1].time.format('HH:mm'), steps: result[i + 1].steps });
   }
+  // console.log(result2);
+  // console.log(_.uniqBy(result2, 'time'));
 
   return _.uniqBy(result2, 'time');
 };
