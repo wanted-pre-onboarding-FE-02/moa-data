@@ -19,7 +19,7 @@ const ColumnChart = () => {
   const dataMinuteList = filterData && transformatData(filterData); // 필터된 데이터 를 분 단위로 쪼갬(오늘 버튼 클릭)
   const dataDayList = filterData && transformatDataDay(filterData); // 필터된 데이터를 날짜별로 나타냄(일주일, 전체 버튼 클릭)
 
-  console.log(dataDayList);
+  // console.log(dataDayList);
 
   const memberInfo = useRecoilValue(pickedMemberInfo);
   const [isInitialData, setIsInitialData] = useState(true);
@@ -44,26 +44,31 @@ const ColumnChart = () => {
     if (dataArr) {
       setDateState({ start: dataArr.startVal, end: dataArr.endVal });
     }
+    // if (dataArr.text === '오늘'){
+
+    // }
+    console.log(dataArr);
   };
+
+  console.log(dataDayList);
 
   return (
     <div className={styles.wrapper}>
-      <VictoryChart width={800} height={400} domainPadding={{ x: 100, y: 10 }}>
-        <VictoryStack>
-          {/* <VictoryBar
-            data={dataMinuteList}
-            x='time'
-            y='steps'
-            labelComponent={<VictoryTooltip style={{ fontSize: 16 }} />}
-          /> */}
-          {/* <VictoryBar
-            data={dataMinuteList}
-            x='date'
-            y='daySteps'
-            // labelComponent={<VictoryTooltip style={{ fontSize: 16 }} />}
-          /> */}
-        </VictoryStack>
-        {/* <VictoryAxis dependentAxis offsetX={10} tickFormat={(tick) => `${tick}보`} /> */}
+      <VictoryChart width={800} height={400} domainPadding={{ x: 180, y: 10 }}>
+        <VictoryBar
+          data={dataMinuteList}
+          x='time'
+          y='steps'
+          labelComponent={<VictoryTooltip style={{ fontSize: 16 }} />}
+        />
+        {/* <VictoryBar
+          data={dataDayList}
+          x='date'
+          y='daySteps'
+          labelComponent={<VictoryTooltip style={{ fontSize: 16 }} />}
+        /> */}
+        <VictoryLabel x={10} y={30} text='걸음수(보)' style={{ fill: 'orange' }} />
+        <VictoryAxis dependentAxis offsetX={50} tickFormat={(tick) => `${tick}`} />
         <VictoryAxis style={{ tickLabels: { angle: 0 } }} fixLabelOverlap />
         {/* <VictoryAxis
           tickFormat={['광고비', '매출', '노출수', '클릭수', '전환수']}

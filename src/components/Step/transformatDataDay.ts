@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import dayjs from 'dayjs';
+// import dayjs from 'dayjs';
 
 interface IStepData {
   seq: number;
@@ -12,11 +12,26 @@ interface IStepData {
 }
 
 const transformatDataDay = (STEP_DATA: IStepData[]) => {
-  const date = STEP_DATA[0]?.crt_ymdt.split(' ')[0]; // 최초 날짜만 가져오기
-  const result = [];
-  result.push({ date, steps: STEP_DATA[0]?.steps });
+  const DayArray: string[] = [];
+  STEP_DATA.forEach((item) => {
+    const day = item.crt_ymdt.split(' ')[0];
+    if (!DayArray.includes(day)) {
+      DayArray.push(day);
+    }
+  });
 
-  return _.uniqBy(result, 'time');
+  const arr = [];
+  for (let i = 0; i < DayArray.length; i += 1) {
+    arr.push(STEP_DATA.find((item) => item.crt_ymdt.split(' ')[0] === DayArray[i]));
+  }
+
+  const result = arr.map((item) => {
+    const date = item?.crt_ymdt.split(' ')[0];
+    return { date, daySteps: item?.steps };
+  });
+  console.log(result);
+
+  return _.uniqBy(result, 'date');
 };
 
 export default transformatDataDay;
