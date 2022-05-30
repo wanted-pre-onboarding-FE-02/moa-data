@@ -1,4 +1,5 @@
 import ReactDatePicker from 'react-datepicker';
+import styles from './datePicker.module.scss';
 
 interface IDateProps {
   startDate: null | Date;
@@ -8,7 +9,7 @@ interface IDateProps {
 
 const DatePicker = ({ startDate, endDate, handleDateChange }: IDateProps) => {
   return (
-    <div>
+    <div className={styles.aaa}>
       <ReactDatePicker
         onChange={handleDateChange}
         disabledKeyboardNavigation

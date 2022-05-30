@@ -9,7 +9,7 @@ interface IProps {
 
 const List = ({ tableData }: IProps) => {
   if (tableData && tableData.length === 0) {
-    return <p>검색 결과가 없습니다. 검색 조건을 다시 설정해주세요.</p>;
+    return <p className={styles.noResult}>검색 결과가 없습니다. 검색 조건을 다시 설정해주세요.</p>;
   }
 
   return (
