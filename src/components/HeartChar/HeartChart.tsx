@@ -35,9 +35,8 @@ const HeartChart = () => {
 
   useEffect(() => {
     if (!heartData || !memberInfo) return;
-    console.log('a');
     const nullStartDate = dateState.start === null ? memberInfo.date : dateState.start;
-    const nullEndDate = dateState.end === null ? '2022-04-20' : dateState.end;
+    const nullEndDate = dateState.newEnd === null ? '2022-04-20' : dateState.newEnd;
 
     const filteredDateData = heartData.filter((date) => dayjs(date.crt_ymdt).isBetween(nullStartDate, nullEndDate));
     if (filteredDateData.length === 0) {
@@ -45,14 +44,14 @@ const HeartChart = () => {
       return;
     }
     setFilterData(filteredDateData);
-  }, [dateState.end, dateState.start, heartData, memberInfo]);
+  }, [dateState.newEnd, dateState.start, heartData, memberInfo]);
 
   const handledDateBtnClick = (e: FormEvent<HTMLButtonElement>) => {
     setIsInitialData(false);
     const { keyword } = e.currentTarget.dataset;
     const dataArr = btnData.find((btn) => btn.text === keyword);
     if (dataArr) {
-      setDateState({ start: dataArr.startVal, end: dataArr.endVal });
+      setDateState({ start: dataArr.startVal, newEnd: dataArr.endVal });
     }
   };
 

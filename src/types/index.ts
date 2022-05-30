@@ -21,5 +21,5 @@ export interface IStepData {
 
 export interface IDate {
   start: null | Date;
-  end: null | Date;
+  newEnd: null | Date;
 }
