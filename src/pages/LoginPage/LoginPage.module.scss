@@ -1,0 +1,35 @@
+.form {
+  width: 400px;
+  height: 400px;
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px 4px rgba(0, 0, 0, 30%);
+
+  & h1 {
+    margin-bottom: 50px;
+    font-size: 24px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+
+  & input {
+    display: block;
+    width: 200px;
+    height: 40px;
+    padding: 4px;
+    margin: 10px auto;
+    border: 1px solid black;
+    border-radius: 4px;
+  }
+
+  & button {
+    display: block;
+    width: 200px;
+    height: 40px;
+    margin: 0 auto;
+    font-size: 20px;
+    background-color: rgb(210, 220, 240);
+    border: 1px solid black;
+    border-radius: 4px;
+  }
+}
