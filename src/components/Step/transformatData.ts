@@ -15,8 +15,8 @@ interface IStepData {
 
 interface IParam {
   memberSeq: number;
-  startDate: string;
-  endDate: string;
+  startDate: Date;
+  endDate: Date;
 }
 
 const getPerMinute = (

@@ -11,7 +11,10 @@ import STEP_DATA_328_3 from 'data/step/step_328_0420_____2_.json';
 import STEP_DATA_380_1 from 'data/step/step_380_0417_____3_.json';
 import STEP_DATA_380_2 from 'data/step/step_380_0418_____3_.json';
 import STEP_DATA_380_3 from 'data/step/step_380_0419_____3_.json';
+
 import transformatData from './transformatData';
+import { useRecoilValue } from 'recoil';
+import { pickedMemberInfo, stepDateState } from 'recoil/member.atom';
 
 interface IData {
   dataList: any[];
@@ -25,15 +28,15 @@ const STEP_DATA = {
 };
 
 const useFormatData = () => {
-  // 나중에 recoil로 변경
-  const memberSeq = 136;
-  const startDate = '2022-02-26';
-  const endDate = '2022-03-07 24:00:00';
+  const dateState = useRecoilValue(stepDateState);
+  const memberInfo = useRecoilValue(pickedMemberInfo);
+
+  const memberSeq = memberInfo?.memSeq;
+  const { start: startDate, newEnd: endDate } = dateState;
   const [data, setData] = useState<IData>({ dataList: [], isDays: false });
 
   useEffect(() => {
     if (!memberSeq || !startDate || !endDate) return;
-
     const result = transformatData(STEP_DATA, {
       memberSeq,
       startDate,

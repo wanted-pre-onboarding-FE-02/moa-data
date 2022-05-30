@@ -1,0 +1,57 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/position';
+
+.searchFormWrapper {
+  background: colors.$WHITE;
+
+  .searchForm {
+    display: flex;
+    flex-direction: column;
+    width: 800px;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    background: colors.$WHITE;
+    outline: 1px solid colors.$BLACK;
+
+    .dateInputWrapper {
+      position: relative;
+      margin-top: 10px;
+
+      .datePickerWrapper {
+        @include position.absolute(25px auto auto 68px);
+      }
+
+      // button {
+      //   margin-left: 10px;
+      //   color: colors.$WHITE;
+      //   background: colors.$MOA_BLUE;
+      // }
+    }
+
+    .underBtns {
+      text-align: right;
+
+      button {
+        min-width: 100px;
+        padding: 10px 20px;
+        margin-left: 5px;
+        color: colors.$WHITE;
+        background: colors.$MOA_BLUE;
+      }
+    }
+
+    input {
+      width: 280px;
+      padding: 10px;
+      background: colors.$WHITE;
+      border-radius: 5px;
+      outline: 1px solid grey;
+    }
+
+    label {
+      padding: 10px 0;
+      margin-left: 5px;
+      background: colors.$GRAYD;
+    }
+  }
+}
