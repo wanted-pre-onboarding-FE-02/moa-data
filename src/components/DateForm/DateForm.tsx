@@ -26,16 +26,17 @@ const DateForm = ({ dateState, setDateState }: IProps) => {
   };
 
   return (
-    <>
+    <div className={styles.dateWrap}>
       <label htmlFor='startDate'>조회 기간</label>
       <button type='button' onClick={handleClick}>
-        <span className={styles.date}>{dateState?.start === null ? '전체' : dateState?.start.toLocaleString()}</span>~{' '}
+        <span className={styles.date}>{dateState?.start === null ? '전체' : dateState?.start.toLocaleString()}</span>
+        <span> ~ </span>
         <span className={styles.date}>{dateState.newEnd === null ? '전체' : dateState.newEnd.toLocaleString()}</span>
       </button>
       {isVisible && (
         <DatePicker startDate={dateState.start} endDate={dateState.newEnd} handleDateChange={handleDateChange} />
       )}
-    </>
+    </div>
   );
 };
 

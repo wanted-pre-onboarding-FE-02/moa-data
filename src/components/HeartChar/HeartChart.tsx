@@ -60,14 +60,14 @@ const HeartChart = () => {
   return (
     <>
       <div className={styles.wrapper}>
-        <VictoryChart width={800} height={400} domain={{ y: [0.4, 1] }} style={{ background: { fill: 'black' } }}>
+        <VictoryChart width={800} height={400} domain={{ y: [0.2, 1] }} style={{ background: { fill: 'white' } }}>
           <VictoryLabel x={15} y={15} text='BPM' style={{ fill: 'orange' }} />
           <VictoryAxis
             dependentAxis
             orientation='left'
             offsetX={50}
-            tickValues={[0.4, 0.54, 0.7, 0.84, 1]}
-            style={{ tickLabels: { fill: 'white' } }}
+            tickValues={[0.2, 0.4, 0.6, 0.8, 1]}
+            style={{ tickLabels: { fill: 'black' } }}
             tickFormat={(t) => `${t * 160}`}
           />
           <VictoryAxis
@@ -77,10 +77,10 @@ const HeartChart = () => {
                   const tickSize = Number(index) % 3 === 0 && Number(index) % 6 !== 0 ? 5 : 0;
                   return tickSize;
                 },
-                stroke: 'white',
+                stroke: 'black',
                 strokeWidth: 1,
               },
-              tickLabels: { fill: 'white' },
+              tickLabels: { fill: 'black' },
             }}
             tickFormat={(t, i) => {
               if (i % 6 === 0) {
@@ -99,12 +99,20 @@ const HeartChart = () => {
           />
         </VictoryChart>
       </div>
-      <DateForm dateState={dateState} setDateState={setDateState} />
-      {btnData.map((d) => (
-        <button type='button' key={`btns-${d.text}`} onClick={handledDateBtnClick} data-keyword={d.text}>
-          {d.text}
-        </button>
-      ))}
+      <div className={styles.dateBox}>
+        <DateForm dateState={dateState} setDateState={setDateState} />
+        {btnData.map((d) => (
+          <button
+            type='button'
+            key={`btns-${d.text}`}
+            className={styles.dateSelect}
+            onClick={handledDateBtnClick}
+            data-keyword={d.text}
+          >
+            {d.text}
+          </button>
+        ))}
+      </div>
     </>
   );
 };
