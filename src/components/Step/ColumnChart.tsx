@@ -44,23 +44,36 @@ const ColumnChart = () => {
     if (dataArr) {
       setDateState({ start: dataArr.startVal, end: dataArr.endVal });
     }
-    // if (dataArr.text === '오늘'){
-
-    // }
-    console.log(dataArr);
   };
 
-  console.log(dataDayList);
+  const handleSelectedData = () => {
+    return (dataDayList.length < 2 ? dataMinuteList : dataDayList);
+    // let data = [];
+    // if (dataDayList.length < 2) {
+    //   // 데이터가 1개 일때
+    //   data = dataMinuteList;
+    // } else {
+    //   // 데이터가 2개 이상 일때
+    //   data = dataDayList;
+    }
+  };
 
   return (
     <div className={styles.wrapper}>
       <VictoryChart width={800} height={400} domainPadding={{ x: 180, y: 10 }}>
+        {/* {handleVictoryAxis()} */}
         <VictoryBar
-          data={dataMinuteList}
+          data={handleSelectedData()}
           x='time'
           y='steps'
           labelComponent={<VictoryTooltip style={{ fontSize: 16 }} />}
         />
+        {/* <VictoryBar
+          data={dataMinuteList}
+          x='time'
+          y='steps'
+          labelComponent={<VictoryTooltip style={{ fontSize: 16 }} />}
+        /> */}
         {/* <VictoryBar
           data={dataDayList}
           x='date'
