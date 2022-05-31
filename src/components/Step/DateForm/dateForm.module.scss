@@ -1,3 +1,33 @@
-.test {
-  width: 100px;
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/position';
+
+.wrapper {
+  position: relative;
+  margin-top: 10px;
+
+  label {
+    margin-right: 20px;
+  }
+
+  .dateDisplay {
+    padding: 5px 10px;
+    margin: 0 5px;
+    font-weight: 600;
+    color: #353535;
+    background: #ebebeb;
+    border-radius: 4px;
+  }
+
+  .datePickerWrapper {
+    @include position.absolute(25px auto auto 68px);
+  }
+
+  .dateButton {
+    padding: 5px 10px;
+    margin: 0 5px;
+    font-weight: 600;
+    color: colors.$GRAY3;
+    background: #ebebeb;
+    border-radius: 6px;
+  }
 }

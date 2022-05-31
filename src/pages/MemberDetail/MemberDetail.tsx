@@ -4,7 +4,7 @@ import HeartChart from '../../components/HeartChar/HeartChart';
 const MemberDetail = () => {
   return (
     <div>
-      {/* <HeartChart /> */}
+      <HeartChart />
       <ColumnChart />
     </div>
   );
