@@ -2,7 +2,12 @@
 @use '/src/styles/mixins/position';
 
 .searchFormWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
   background: colors.$WHITE;
+  border-radius: 6px;
 
   .searchForm {
     display: flex;
@@ -11,21 +16,37 @@
     margin-top: 30px;
     margin-bottom: 30px;
     background: colors.$WHITE;
-    outline: 1px solid colors.$BLACK;
+
+    .idAndNumWrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    span {
+      padding: 10px 0;
+    }
 
     .dateInputWrapper {
       position: relative;
       margin-top: 10px;
 
+      label {
+        margin-right: 20px;
+      }
+
       .datePickerWrapper {
         @include position.absolute(25px auto auto 68px);
       }
 
-      // button {
-      //   margin-left: 10px;
-      //   color: colors.$WHITE;
-      //   background: colors.$MOA_BLUE;
-      // }
+      .dateButton {
+        padding: 5px 10px;
+        margin: 0 5px;
+        font-weight: 600;
+        color: colors.$GRAY3;
+        background: #ebebeb;
+        border-radius: 6px;
+      }
     }
 
     .underBtns {
@@ -34,24 +55,22 @@
       button {
         min-width: 100px;
         padding: 10px 20px;
+        margin-top: 30px;
         margin-left: 5px;
         color: colors.$WHITE;
-        background: colors.$MOA_BLUE;
+        background: colors.$MOA_BRIGHT_BLUE;
+
+        &:first-child {
+          background: #c7c7c7;
+        }
       }
     }
 
     input {
       width: 280px;
       padding: 10px;
-      background: colors.$WHITE;
-      border-radius: 5px;
-      outline: 1px solid grey;
-    }
-
-    label {
-      padding: 10px 0;
-      margin-left: 5px;
-      background: colors.$GRAYD;
+      margin-left: 20px;
+      border-bottom: 1px solid colors.$MOA_BORDER2;
     }
   }
 }

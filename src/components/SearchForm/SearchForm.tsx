@@ -65,15 +65,15 @@ const SearchForm = () => {
 
   return (
     <div className={styles.searchFormWrapper}>
-      <h3>회원 검색</h3>
+      {/* <h3>회원 검색</h3> */}
       <form onSubmit={handleSubmit} className={styles.searchForm}>
         <div className={styles.idAndNumWrapper}>
           <label htmlFor='memberId'>
-            로그인 ID
+            <span>로그인 ID</span>
             <input type='text' id='memberId' value={id} placeholder='전체' autoComplete='off' onChange={handleChange} />
           </label>
           <label htmlFor='memberNum'>
-            회원 번호
+            <span>회원 번호</span>
             <input
               type='text'
               id='memberNum'
@@ -87,7 +87,13 @@ const SearchForm = () => {
         <div className={styles.dateInputWrapper}>
           <DateForm dateState={dateState} setDateState={setDateState} />
           {btnData.map((d) => (
-            <button type='button' key={`btns-${d.text}`} onClick={handledDateBtnClick} data-keyword={d.text}>
+            <button
+              type='button'
+              className={styles.dateButton}
+              key={`btns-${d.text}`}
+              onClick={handledDateBtnClick}
+              data-keyword={d.text}
+            >
               {d.text}
             </button>
           ))}

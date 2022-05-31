@@ -1,0 +1,56 @@
+@use '/src/styles/constants/colors';
+
+.pageWrapper {
+  header {
+    position: fixed;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 10px 20px;
+    background: colors.$WHITE;
+    border-bottom: 2px solid colors.$MOA_BORDER;
+    box-shadow: rgba(colors.$GRAY2, 0.12) 0 0 6px 0;
+
+    svg {
+      margin-right: 10px;
+    }
+
+    p {
+      margin-right: 10px;
+    }
+
+    h1 {
+      font-weight: 700;
+      line-height: 37px;
+      color: colors.$MOA_BRIGHT_BLUE;
+    }
+
+    .rightWing {
+      display: flex;
+      align-items: center;
+
+      button {
+        padding: 8px 14px;
+        font-size: 12px;
+        color: colors.$WHITE;
+        background-color: colors.$MOA_BRIGHT_BLUE;
+        border-radius: 4px;
+      }
+    }
+  }
+
+  .outletWrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 50px;
+    padding-top: 70px;
+    background: colors.$MOA_BG;
+
+    h3 {
+      margin: 20px 0 30px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+  }
+}

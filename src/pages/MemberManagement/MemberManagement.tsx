@@ -1,11 +1,7 @@
 import SearchForm from '../../components/SearchForm/SearchForm';
 
 const MemberManagement = () => {
-  return (
-    <div>
-      <SearchForm />
-    </div>
-  );
+  return <SearchForm />;
 };
 
 export default MemberManagement;

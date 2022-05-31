@@ -28,7 +28,7 @@ const DateForm = ({ dateState, setDateState }: IProps) => {
   return (
     <>
       <label htmlFor='startDate'>조회 기간</label>
-      <button type='button' onClick={handleClick}>
+      <button type='button' onClick={handleClick} className={styles.dateButton}>
         <span className={styles.date}>{dateState?.start === null ? '전체' : dateState?.start.toLocaleString()}</span>~{' '}
         <span className={styles.date}>{dateState.newEnd === null ? '전체' : dateState.newEnd.toLocaleString()}</span>
       </button>
