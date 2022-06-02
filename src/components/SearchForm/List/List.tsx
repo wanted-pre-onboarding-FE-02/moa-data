@@ -4,10 +4,11 @@ import TableRowItem from './TableRowItem';
 import { TABLE_TITLE } from './ListConstant';
 
 interface IProps {
-  tableData: [] | IDumDataSet[];
+  tableData: undefined | IDumDataSet[];
 }
 
 const List = ({ tableData }: IProps) => {
+  if (!tableData) return <p className={styles.noResult}>회원 정보를 검색해주세요.</p>;
   if (tableData && tableData.length === 0) {
     return <p className={styles.noResult}>검색 결과가 없습니다. 검색 조건을 다시 설정해주세요.</p>;
   }

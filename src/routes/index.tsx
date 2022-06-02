@@ -13,7 +13,7 @@ const RootRoute = () => {
       </Route>
       <Route path='' element={<ResultLayout />}>
         <Route path='memberManagement' element={<MemberManagement />} />
-        <Route path='memberDetail' element={<MemberDetail />} />
+        <Route path='memberDetail/:memberID' element={<MemberDetail />} />
       </Route>
     </Routes>
   );
