@@ -8,9 +8,9 @@ import thirUserHeart1 from '../data/heartrate/heartrate_380_0417_____3_.json';
 import thirUserHeart2 from '../data/heartrate/heartrate_380_0418_____3_.json';
 import thirUserHeart3 from '../data/heartrate/heartrate_380_0419_____3_.json';
 
-const heartData136 = [...firUserHeart1, ...firUserHeart2, ...firUserHeart3];
-const heartData328 = [...secUserHeart1, ...secUserHeart2, ...secUserHeart3];
-const heartData380 = [...thirUserHeart1, ...thirUserHeart2, ...thirUserHeart3];
+const heartData136 = [...firUserHeart1.reverse(), ...firUserHeart2.reverse(), ...firUserHeart3.reverse()];
+const heartData328 = [...secUserHeart1.reverse(), ...secUserHeart2.reverse(), ...secUserHeart3.reverse()];
+const heartData380 = [...thirUserHeart1.reverse(), ...thirUserHeart2.reverse(), ...thirUserHeart3.reverse()];
 
 export default function getUserHeartInfo(memSeq: number) {
   return {

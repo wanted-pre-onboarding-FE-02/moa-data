@@ -36,7 +36,7 @@ const HeartChart = () => {
   useEffect(() => {
     if (!heartData || !memberInfo) return;
     const nullStartDate = dateState.start === null ? memberInfo.date : dateState.start;
-    const nullEndDate = dateState.newEnd === null ? '2022-04-20' : dateState.newEnd;
+    const nullEndDate = dateState.newEnd === null ? '2022-04-13' : dateState.newEnd;
 
     const filteredDateData = heartData.filter((date) => dayjs(date.crt_ymdt).isBetween(nullStartDate, nullEndDate));
     if (filteredDateData.length === 0) {
@@ -55,18 +55,18 @@ const HeartChart = () => {
     }
   };
 
-  // console.log(heartData);
+  let Today = filterResult.length !== 0 && filterResult[0].x.slice(0, 10);
 
   return (
     <>
       <div className={styles.wrapper}>
-        <VictoryChart width={800} height={400} domain={{ y: [0.4, 1] }} style={{ background: { fill: 'black' } }}>
+        <VictoryChart width={800} height={400} domain={{ y: [0.1, 1] }} style={{ background: { fill: 'black' } }}>
           <VictoryLabel x={15} y={15} text='BPM' style={{ fill: 'orange' }} />
           <VictoryAxis
             dependentAxis
             orientation='left'
             offsetX={50}
-            tickValues={[0.4, 0.54, 0.7, 0.84, 1]}
+            tickValues={[0.2, 0.35, 0.54, 0.7, 0.84, 1]}
             style={{ tickLabels: { fill: 'white' } }}
             tickFormat={(t) => `${t * 160}`}
           />
@@ -83,16 +83,29 @@ const HeartChart = () => {
               tickLabels: { fill: 'white' },
             }}
             tickFormat={(t, i) => {
-              if (i % 6 === 0) {
-                const stringDate = String(new Date(t));
-                return `${stringDate.slice(16, 24)}`;
+              if (filterResult.length > 60) {
+                if (Today === t.slice(0, 10)) {
+                  if (i % 25 === 0) {
+                    const stringDate = String(new Date(t));
+                    return `${stringDate.slice(16, 24)}`;
+                  }
+                  return '';
+                }
+                Today = t.slice(0, 10);
+                return `${t.slice(8, 10)}일`;
+              }
+              if (filterResult.length <= 60) {
+                if (i % 6 === 0) {
+                  const stringDate = String(new Date(t));
+                  return `${stringDate.slice(16, 24)}`;
+                }
               }
               return '';
             }}
           />
           {/* filterData.length !== 0 ? filterResult.reverse() : result.reverse() */}
           <VictoryArea
-            data={isInitialData ? result.reverse() : filterResult.reverse()}
+            data={isInitialData ? result : filterResult}
             y={(datum) => datum.y / 160}
             interpolation='monotoneX'
             style={{ data: { fill: 'rgba(255,150,99,0.15)', stroke: 'orange', strokeWidth: 2 } }}
