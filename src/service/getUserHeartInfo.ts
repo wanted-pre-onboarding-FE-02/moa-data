@@ -13,9 +13,11 @@ const heartData328 = [...secUserHeart1.reverse(), ...secUserHeart2.reverse(), ..
 const heartData380 = [...thirUserHeart1.reverse(), ...thirUserHeart2.reverse(), ...thirUserHeart3.reverse()];
 
 export default function getUserHeartInfo(memSeq: number) {
-  return {
-    136: heartData136,
-    328: heartData328,
-    380: heartData380,
-  }[memSeq];
+  return (
+    {
+      136: heartData136,
+      328: heartData328,
+      380: heartData380,
+    }[memSeq] ?? []
+  );
 }

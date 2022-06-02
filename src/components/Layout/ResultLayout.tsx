@@ -1,5 +1,5 @@
 import { ProfileIcon } from 'assets';
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import styles from './resultLayout.module.scss';
 
 const ResultLayout = () => {

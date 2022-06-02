@@ -4,8 +4,9 @@ import dayjs from 'dayjs';
 import { FormEvent, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { heartDataState, heartDateState, pickedMemberInfo } from 'recoil/member.atom';
-import { IDate, IHeartData } from 'types';
+import { IDate } from 'types';
 import { VictoryArea, VictoryAxis, VictoryChart, VictoryLabel } from 'victory';
+import { CallbackArgs } from 'victory-core';
 import styles from './heartChart.module.scss';
 
 interface IHeartBeat {
@@ -16,38 +17,23 @@ interface IHeartBeat {
 const HeartChart = () => {
   const heartData = useRecoilValue(heartDataState); // 전체 데이터
   const [dateState, setDateState] = useRecoilState<IDate>(heartDateState);
-  const [filterData, setFilterData] = useState<IHeartData[]>([]); // 필터된 데이터
+  const [filterResult, setFilterData] = useState<IHeartBeat[]>([]); // 필터된 데이터
   const memberInfo = useRecoilValue(pickedMemberInfo);
-  const [isInitialData, setIsInitialData] = useState(true);
 
-  const result: IHeartBeat[] = []; // 뿌려주는 전체 데이터
-  const filterResult: IHeartBeat[] = []; // 뿌려주는 필터된 데이터
-
-  heartData &&
+  useEffect(() => {
+    const result: IHeartBeat[] = [];
     heartData.forEach((_data) => {
       result.push({ x: _data.crt_ymdt, y: _data.avg_beat });
     });
 
-  filterData &&
-    filterData.forEach((_data) => {
-      filterResult.push({ x: _data.crt_ymdt, y: _data.avg_beat });
-    });
-
-  useEffect(() => {
-    if (!heartData || !memberInfo) return;
     const nullStartDate = dateState.start === null ? memberInfo.date : dateState.start;
     const nullEndDate = dateState.newEnd === null ? '2022-04-13' : dateState.newEnd;
+    const resultFilter = result.filter((data) => dayjs(data.x).isBetween(nullStartDate, nullEndDate));
 
-    const filteredDateData = heartData.filter((date) => dayjs(date.crt_ymdt).isBetween(nullStartDate, nullEndDate));
-    if (filteredDateData.length === 0) {
-      setFilterData([]);
-      return;
-    }
-    setFilterData(filteredDateData);
+    setFilterData(resultFilter);
   }, [dateState.newEnd, dateState.start, heartData, memberInfo]);
 
   const handledDateBtnClick = (e: FormEvent<HTMLButtonElement>) => {
-    setIsInitialData(false);
     const { keyword } = e.currentTarget.dataset;
     const dataArr = btnData.find((btn) => btn.text === keyword);
     if (dataArr) {
@@ -73,21 +59,18 @@ const HeartChart = () => {
           <VictoryAxis
             style={{
               ticks: {
-                size: ({ index }) => {
-                  const tickSize = Number(index) % 3 === 0 && Number(index) % 6 !== 0 ? 5 : 0;
-                  return tickSize;
-                },
+                size: 5,
                 stroke: 'white',
                 strokeWidth: 1,
               },
-              tickLabels: { fill: 'white' },
+              tickLabels: { fill: 'white', fontSize: 12 },
             }}
             tickFormat={(t, i) => {
               if (filterResult.length > 60) {
                 if (Today === t.slice(0, 10)) {
-                  if (i % 25 === 0) {
+                  if (i % 30 === 0) {
                     const stringDate = String(new Date(t));
-                    return `${stringDate.slice(16, 24)}`;
+                    return `${stringDate.slice(16, 21)}`;
                   }
                   return '';
                 }
@@ -97,18 +80,20 @@ const HeartChart = () => {
               if (filterResult.length <= 60) {
                 if (i % 6 === 0) {
                   const stringDate = String(new Date(t));
-                  return `${stringDate.slice(16, 24)}`;
+                  return `${stringDate.slice(16, 21)}`;
                 }
               }
               return '';
             }}
           />
-          {/* filterData.length !== 0 ? filterResult.reverse() : result.reverse() */}
+
           <VictoryArea
-            data={isInitialData ? result : filterResult}
+            data={filterResult}
             y={(datum) => datum.y / 160}
             interpolation='monotoneX'
-            style={{ data: { fill: 'rgba(255,150,99,0.15)', stroke: 'orange', strokeWidth: 2 } }}
+            style={{
+              data: { fill: 'rgba(255,150,99,0.15)', stroke: 'orange', strokeWidth: 2 },
+            }}
           />
         </VictoryChart>
       </div>

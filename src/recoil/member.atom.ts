@@ -3,12 +3,16 @@ import { atom } from 'recoil';
 import { IHeartData } from 'types';
 import IDumDataSet from '../components/SearchForm/searchData.d';
 
-export const pickedMemberInfo = atom<null | IDumDataSet>({
+export const pickedMemberInfo = atom<IDumDataSet>({
   key: '#pickedMemberInfo',
-  default: null,
+  default: {
+    id: '',
+    date: '',
+    memSeq: -1,
+  },
 });
 
-export const heartDataState = atom<IHeartData[] | undefined>({
+export const heartDataState = atom<IHeartData[]>({
   key: '#heartDataState',
   default: [],
 });
