@@ -1,0 +1,33 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/position';
+
+.infoWrapper {
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  // text-align: ;
+  padding: 20px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  background: colors.$WHITE;
+
+  span {
+    padding: 10px 0;
+  }
+
+  .codeBlock {
+    display: inline-block;
+  }
+
+  input {
+    width: 280px;
+    padding: 10px;
+    margin-left: 20px;
+    border-bottom: 1px solid colors.$MOA_BORDER2;
+  }
+
+  label:nth-child(2) {
+    display: inline-block;
+    // color: red;
+  }
+}
