@@ -25,6 +25,8 @@ const ColumnChart = () => {
           x={isDays ? 'ymd' : 'time'}
           y='steps'
           labelComponent={<VictoryTooltip style={{ fontSize: 16 }} />}
+          labels={({ datum }) => datum.steps}
+          style={{ data: { fill: 'orange' } }}
         />
         <VictoryLabel x={10} y={30} text='걸음수(보)' />
         <VictoryAxis style={{ tickLabels: { angle: 0, fontSize: 10 } }} fixLabelOverlap />
