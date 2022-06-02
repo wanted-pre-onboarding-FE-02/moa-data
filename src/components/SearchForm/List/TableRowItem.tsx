@@ -29,7 +29,7 @@ const TableRowItem = ({ rowData }: IRowDataSet) => {
     setMemberInfo(rowData);
     setHearthData(wholeHeartData);
     // console.log(wholeHeartData, wholeStepData);
-    navigate('/memberDetail');
+    navigate(`/memberDetail/${memSeq}`);
   };
 
   return (

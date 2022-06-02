@@ -20,7 +20,7 @@ const SearchForm = () => {
   const [code, setCode] = useState<string>('');
   const [dateState, setDateState] = useRecoilState<IDate>(searchListDateState);
   // const [isVisible, setIsVisible] = useState(false);
-  const [filtered, setFiltered] = useState<IDumDataSet[] | []>([]);
+  const [filtered, setFiltered] = useState<IDumDataSet[] | undefined>(undefined);
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -105,7 +105,7 @@ const SearchForm = () => {
           <button type='submit'>검색</button>
         </div>
       </form>
-      {filtered && <List tableData={filtered} />}
+      <List tableData={filtered} />
     </div>
   );
 };
