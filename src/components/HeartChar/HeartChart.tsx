@@ -20,6 +20,8 @@ const HeartChart = () => {
   const memberInfo = useRecoilValue(pickedMemberInfo);
   const [isInitialData, setIsInitialData] = useState(true);
 
+  console.log(memberInfo);
+
   const result: IHeartBeat[] = []; // 뿌려주는 전체 데이터
   const filterResult: IHeartBeat[] = []; // 뿌려주는 필터된 데이터
 

@@ -1,10 +1,11 @@
-import { useRecoilValue } from 'recoil';
-import { pickedMemberInfo } from 'recoil/member.atom';
+import IDumDataSet from 'components/SearchForm/searchData';
 import styles from './memberInfo.module.scss';
 
-const MemberInfo = () => {
-  const info = useRecoilValue(pickedMemberInfo);
+interface IProps {
+  info: IDumDataSet | null;
+}
 
+const MemberInfo = ({ info }: IProps) => {
   return (
     <div className={styles.infoWrapper}>
       {info && (

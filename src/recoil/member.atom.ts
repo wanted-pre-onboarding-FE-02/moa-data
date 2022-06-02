@@ -1,4 +1,4 @@
-import { IDate } from '../types/index';
+import { IDate, IStepData } from '../types/index';
 import { atom } from 'recoil';
 import { IHeartData } from 'types';
 import IDumDataSet from '../components/SearchForm/searchData.d';
@@ -10,6 +10,11 @@ export const pickedMemberInfo = atom<null | IDumDataSet>({
 
 export const heartDataState = atom<IHeartData[] | undefined>({
   key: '#heartDataState',
+  default: [],
+});
+
+export const stepDataState = atom<IStepData[] | undefined>({
+  key: '#stepDataState',
   default: [],
 });
 
