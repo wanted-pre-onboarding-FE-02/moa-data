@@ -6,7 +6,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { heartDataState, heartDateState, pickedMemberInfo } from 'recoil/member.atom';
 import { IDate } from 'types';
 import { VictoryArea, VictoryAxis, VictoryChart, VictoryLabel } from 'victory';
-import { CallbackArgs } from 'victory-core';
 import styles from './heartChart.module.scss';
 
 interface IHeartBeat {
