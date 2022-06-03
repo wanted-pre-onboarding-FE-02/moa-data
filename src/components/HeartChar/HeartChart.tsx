@@ -1,12 +1,10 @@
-// import DateForm from 'components/DateForm/DateForm';
-import { btnData } from 'components/SearchForm/List/ListConstant';
-import DateForm from 'components/Step/DateForm/DateForm';
+import { useEffect, useState } from 'react';
+import { useRecoilValue } from 'recoil';
 import dayjs from 'dayjs';
-import { FormEvent, useEffect, useState } from 'react';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { VictoryArea, VictoryAxis, VictoryChart, VictoryLabel } from 'victory';
 import { heartDataState, heartDateState, pickedMemberInfo } from 'recoil/member.atom';
 import { IDate } from 'types';
-import { VictoryArea, VictoryAxis, VictoryChart, VictoryLabel } from 'victory';
+import DateForm from 'components/Step/DateForm/DateForm';
 import styles from './heartChart.module.scss';
 
 interface IHeartBeat {
@@ -15,9 +13,9 @@ interface IHeartBeat {
 }
 
 const HeartChart = () => {
-  const heartData = useRecoilValue(heartDataState); // 전체 데이터
-  const [dateState, setDateState] = useRecoilState<IDate>(heartDateState);
-  const [filterResult, setFilterData] = useState<IHeartBeat[]>([]); // 필터된 데이터
+  const heartData = useRecoilValue(heartDataState);
+  const dateState = useRecoilValue<IDate>(heartDateState);
+  const [filterResult, setFilterData] = useState<IHeartBeat[]>([]);
   const memberInfo = useRecoilValue(pickedMemberInfo);
 
   useEffect(() => {
@@ -32,16 +30,6 @@ const HeartChart = () => {
 
     setFilterData(resultFilter);
   }, [dateState.newEnd, dateState.start, heartData, memberInfo]);
-
-  const handledDateBtnClick = (e: FormEvent<HTMLButtonElement>) => {
-    const { keyword } = e.currentTarget.dataset;
-    const dataArr = btnData.find((btn) => btn.text === keyword);
-    if (dataArr) {
-      setDateState({ start: dataArr.startVal, newEnd: dataArr.endVal });
-    }
-  };
-
-  const Today = filterResult.length !== 0 && filterResult[0].x.slice(0, 10);
 
   return (
     <>
@@ -66,18 +54,11 @@ const HeartChart = () => {
               tickLabels: { fill: 'white', fontSize: 12 },
             }}
             tickFormat={(t, i) => {
-              console.log(filterResult.length);
               if (filterResult.length > 65) {
-                // if (Today === t.slice(0, 10)) {
-                if (i % 60 === 0) {
-                  // const stringDate = String(new Date(t));
-                  // return `${stringDate.slice(16, 21)}`;
+                if (i % 55 === 0) {
                   return `${t.slice(5, 10)}일`;
-                  // }
                 }
                 return '';
-                // Today = t.slice(0, 10);
-                // return `${t.slice(5, 10)}일`;
               }
               if (filterResult.length <= 65) {
                 if (i % 6 === 0) {
@@ -99,13 +80,8 @@ const HeartChart = () => {
           />
         </VictoryChart>
       </div>
-      {/* <DateForm dateState={dateState} setDateState={setDateState} /> */}
+
       <DateForm atomState={heartDateState} />
-      {btnData.map((d) => (
-        <button type='button' key={`btns-${d.text}`} onClick={handledDateBtnClick} data-keyword={d.text}>
-          {d.text}
-        </button>
-      ))}
     </>
   );
 };
