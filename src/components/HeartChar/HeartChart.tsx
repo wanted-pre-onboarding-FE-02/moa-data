@@ -1,5 +1,6 @@
-import DateForm from 'components/DateForm/DateForm';
+// import DateForm from 'components/DateForm/DateForm';
 import { btnData } from 'components/SearchForm/List/ListConstant';
+import DateForm from 'components/Step/DateForm/DateForm';
 import dayjs from 'dayjs';
 import { FormEvent, useEffect, useState } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -40,7 +41,7 @@ const HeartChart = () => {
     }
   };
 
-  let Today = filterResult.length !== 0 && filterResult[0].x.slice(0, 10);
+  const Today = filterResult.length !== 0 && filterResult[0].x.slice(0, 10);
 
   return (
     <>
@@ -65,18 +66,20 @@ const HeartChart = () => {
               tickLabels: { fill: 'white', fontSize: 12 },
             }}
             tickFormat={(t, i) => {
-              if (filterResult.length > 60) {
-                if (Today === t.slice(0, 10)) {
-                  if (i % 30 === 0) {
-                    const stringDate = String(new Date(t));
-                    return `${stringDate.slice(16, 21)}`;
-                  }
-                  return '';
+              console.log(filterResult.length);
+              if (filterResult.length > 65) {
+                // if (Today === t.slice(0, 10)) {
+                if (i % 60 === 0) {
+                  // const stringDate = String(new Date(t));
+                  // return `${stringDate.slice(16, 21)}`;
+                  return `${t.slice(5, 10)}일`;
+                  // }
                 }
-                Today = t.slice(0, 10);
-                return `${t.slice(8, 10)}일`;
+                return '';
+                // Today = t.slice(0, 10);
+                // return `${t.slice(5, 10)}일`;
               }
-              if (filterResult.length <= 60) {
+              if (filterResult.length <= 65) {
                 if (i % 6 === 0) {
                   const stringDate = String(new Date(t));
                   return `${stringDate.slice(16, 21)}`;
@@ -96,7 +99,8 @@ const HeartChart = () => {
           />
         </VictoryChart>
       </div>
-      <DateForm dateState={dateState} setDateState={setDateState} />
+      {/* <DateForm dateState={dateState} setDateState={setDateState} /> */}
+      <DateForm atomState={heartDateState} />
       {btnData.map((d) => (
         <button type='button' key={`btns-${d.text}`} onClick={handledDateBtnClick} data-keyword={d.text}>
           {d.text}
