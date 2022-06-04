@@ -1,4 +1,5 @@
 import ResultLayout from 'components/Layout/ResultLayout';
+import Home from 'pages/Home/Home';
 import MemberDetail from 'pages/MemberDetail/MemberDetail';
 import MemberManagement from 'pages/MemberManagement/MemberManagement';
 import { Route, Routes } from 'react-router-dom';
@@ -12,6 +13,7 @@ const RootRoute = () => {
         <Route path='' element={<LoginPage />} />
       </Route>
       <Route path='' element={<ResultLayout />}>
+        <Route path='home' element={<Home />} />
         <Route path='memberManagement' element={<MemberManagement />} />
         <Route path='memberDetail/:memberID' element={<MemberDetail />} />
       </Route>

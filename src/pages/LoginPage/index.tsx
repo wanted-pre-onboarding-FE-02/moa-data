@@ -16,7 +16,7 @@ const LoginPage = () => {
     const { status, message } = authenticateUser(idRef.current!.value, passwordRef.current!.value);
 
     if (status) {
-      navigate('/memberManagement');
+      navigate('/home');
       return;
     }
     toast(message);

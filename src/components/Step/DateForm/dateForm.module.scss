@@ -3,6 +3,7 @@
 
 .wrapper {
   position: relative;
+  padding-left: 50px;
   margin-top: 10px;
 
   label {
@@ -13,8 +14,8 @@
     padding: 5px 10px;
     margin: 0 5px;
     font-weight: 600;
-    color: #353535;
-    background: #ebebeb;
+    color: colors.$MOA_DATEBLACK;
+    background: colors.$MOA_BORDER;
     border-radius: 4px;
   }
 

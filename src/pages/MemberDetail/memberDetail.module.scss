@@ -1,0 +1,15 @@
+@use '/src/styles/constants/colors';
+
+.memberDetail {
+  padding: 20px;
+  background: colors.$WHITE;
+
+  h3 {
+    width: 100px;
+    padding: 10px;
+    margin: 30px 15px;
+    font-size: 22px;
+    text-align: center;
+    border-bottom: 3px solid colors.$MOA_BORDER;
+  }
+}

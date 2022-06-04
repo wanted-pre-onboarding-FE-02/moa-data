@@ -80,7 +80,6 @@ const HeartChart = () => {
           />
         </VictoryChart>
       </div>
-
       <DateForm atomState={heartDateState} />
     </>
   );

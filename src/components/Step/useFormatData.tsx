@@ -12,9 +12,9 @@ import STEP_DATA_380_1 from 'data/step/step_380_0417_____3_.json';
 import STEP_DATA_380_2 from 'data/step/step_380_0418_____3_.json';
 import STEP_DATA_380_3 from 'data/step/step_380_0419_____3_.json';
 
-import transformatData from './transformatData';
 import { useRecoilValue } from 'recoil';
 import { pickedMemberInfo, stepDateState } from 'recoil/member.atom';
+import transformatData from './transformatData';
 
 interface IData {
   dataList: any[];

@@ -1,13 +1,15 @@
-import MemberInfo from 'components/MemberInfo/MemberInfo';
-import { DUMMY_DATA } from 'components/SearchForm/List/ListConstant';
-import ColumnChart from 'components/Step/ColumnChart';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import { heartDataState, pickedMemberInfo, stepDataState } from 'recoil/member.atom';
+import MemberInfo from 'components/MemberInfo/MemberInfo';
+import { DUMMY_DATA } from 'components/SearchForm/List/ListConstant';
+import ColumnChart from 'components/Step/ColumnChart';
+import HeartChart from 'components/HeartChar/HeartChart';
 import getUserHeartInfo from 'service/getUserHeartInfo';
 import getUserStepInfo from 'service/getUserStepInfo';
-import HeartChart from '../../components/HeartChar/HeartChart';
+
+import styles from './memberDetail.module.scss';
 
 const MemberDetail = () => {
   const { memberID } = useParams();
@@ -28,9 +30,11 @@ const MemberDetail = () => {
   }, [filteredInfo, setHearthData, setMemberInfo, setStepData, wholeHeartData, wholeStepData]);
 
   return (
-    <div>
+    <div className={styles.memberDetail}>
       <MemberInfo info={filteredInfo} />
+      <h3>심박수</h3>
       <HeartChart />
+      <h3>걸음수</h3>
       <ColumnChart />
     </div>
   );
